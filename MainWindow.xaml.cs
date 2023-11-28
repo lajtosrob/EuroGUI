@@ -70,8 +70,36 @@ namespace EuroGUI
 
         private void btnFeladat4_Click(object sender, RoutedEventArgs e)
         {
-            lblFeladat4.Content = $"Szervező ország: {0}";
-            
+
+            try
+            {
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+                string queryText2 = "";
+
+                MySqlCommand query2 = new MySqlCommand(queryText2, connection);
+                MySqlDataReader raceReader = query2.ExecuteReader();
+                while (raceReader.Read())
+                {
+                    Verseny versenySor = new Verseny(raceReader);
+
+                    versenyek.Add(versenySor);
+                }
+
+                raceReader.Close();
+                connection.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            var selectedItemInDataGrid = dgDataTable.SelectedItem.ToString()[1];
+
+            lblFeladat4.Content = $"Szervező ország: {selectedItemInDataGrid}";
+
+
         }
 
         private void btnFeladat5_Click(object sender, RoutedEventArgs e)
