@@ -70,12 +70,13 @@ namespace EuroGUI
 
         private void btnFeladat4_Click(object sender, RoutedEventArgs e)
         {
+            versenyek = new List<Verseny>();
 
             try
             {
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
-                string queryText2 = "";
+                string queryText2 = "SELECT ev, datum, varos, orszag, induloszam FROM `verseny`;";
 
                 MySqlCommand query2 = new MySqlCommand(queryText2, connection);
                 MySqlDataReader raceReader = query2.ExecuteReader();
@@ -95,9 +96,9 @@ namespace EuroGUI
                 throw;
             }
 
-            var selectedItemInDataGrid = dgDataTable.SelectedItem.ToString()[1];
+            string selectedCountry = dgDataTable.SelectedItem.ToString();
 
-            lblFeladat4.Content = $"Szervező ország: {selectedItemInDataGrid}";
+            lblFeladat4.Content = $"Szervező ország: {selectedCountry}";
 
 
         }
