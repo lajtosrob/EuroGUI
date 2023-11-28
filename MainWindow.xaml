@@ -1,0 +1,30 @@
+﻿<Window x:Class="EuroGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EuroGUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+        <DataGrid x:Name="dgDataTable">
+            </DataGrid>
+
+            
+        <StackPanel >
+                <StackPanel Orientation="Horizontal">
+
+                    <Button x:Name="btnFeladat4" Content="4. feladat" Width="70px" Height="40px" Click="btnFeladat4_Click"/>
+            <Label x:Name="lblFeladat4" Content="Szervező ország: "/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+
+                        <Button x:Name="btnFeladat5" Content="5. feladat" Width="70px" Height="40px" Click="btnFeladat5_Click"/>
+            <Label x:Name="lblFeladat5" Content="Magyarországi versenyzők: "/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Window>
