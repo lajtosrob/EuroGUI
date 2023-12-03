@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 
 namespace EuroGUI
 {
@@ -70,22 +72,35 @@ namespace EuroGUI
 
         private void btnFeladat4_Click(object sender, RoutedEventArgs e)
         {
+
+            //{
+            //    Versenyzo v = (Versenyzo)result.SelectedItem;
+            //    string queryText = $"SELECT orszag FROM verseny WHERE ev={v.Ev}";
+            //    MySqlCommand query = new MySqlCommand(queryText, connection);
+            //    MySqlDataReader reader = query.ExecuteReader();
+            //    reader.Read();
+            //    string eredmenyOrszag = reader.GetString(0);
+            //    feladat4Label.Content = $"Szervező ország: {eredmenyOrszag}";
+            //    reader.Close();
+            //}
+
             versenyek = new List<Verseny>();
+            Versenyzo selectedRow = (Versenyzo)dgDataTable.SelectedItem;
+
+            string queryText2;
 
             try
             {
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
-                string queryText2 = "SELECT ev, datum, varos, orszag, induloszam FROM `verseny`;";
+                queryText2 = $"SELECT orszag FROM verseny WHERE ev = {selectedRow.Ev} ;";
 
                 MySqlCommand query2 = new MySqlCommand(queryText2, connection);
                 MySqlDataReader raceReader = query2.ExecuteReader();
-                while (raceReader.Read())
-                {
-                    Verseny versenySor = new Verseny(raceReader);
+                raceReader.Read();
 
-                    versenyek.Add(versenySor);
-                }
+                string resultCountry = raceReader.GetString(0);
+                lblFeladat4.Content = $"Szervező ország: {resultCountry}";
 
                 raceReader.Close();
                 connection.Close();
@@ -95,11 +110,6 @@ namespace EuroGUI
 
                 throw;
             }
-
-            string selectedCountry = dgDataTable.SelectedItem.ToString();
-
-            lblFeladat4.Content = $"Szervező ország: {selectedCountry}";
-
 
         }
 
